@@ -15,7 +15,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from dotenv import load_dotenv
 
 
-os.environ.get('OPENAI_API_KEY')
+os.environ.get('HUGGINGFACEHUB_API_TOKEN')
 
 
 st.set_page_config(page_title="Chatbot", page_icon=":books:")
