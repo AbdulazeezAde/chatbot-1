@@ -3,7 +3,7 @@ import streamlit as st
 import os
 from langchain.chains import RetrievalQA
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain.llms import HuggingFaceHub
+from langchain_community.llms import HuggingFaceHub
 from langchain_community.llms import LlamaCpp
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
@@ -16,7 +16,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from dotenv import load_dotenv
 
 
-os.environ.get('HUGGINGFACEHUB_API_TOKEN')
+os.environ.get('HUGGINGFACE_API_KEY')
 
 
 st.set_page_config(page_title="Chatbot", page_icon=":books:")
@@ -50,7 +50,7 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=20)
 text_chunks = text_splitter.split_documents(docs)
 
 
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2") 
+embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl") 
 
 # create embeddings for each text chunk using the FAISS class, which creates a vector index using FAISS and allows efficient searches between vectors
 vector_store = FAISS.from_documents(text_chunks, embedding=embeddings) 
