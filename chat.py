@@ -50,7 +50,7 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=20)
 text_chunks = text_splitter.split_documents(docs)
 
 
-embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl") 
+embeddings = HuggingFaceInstructEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2") 
 
 # create embeddings for each text chunk using the FAISS class, which creates a vector index using FAISS and allows efficient searches between vectors
 vector_store = FAISS.from_documents(text_chunks, embedding=embeddings) 
@@ -60,7 +60,7 @@ vector_store = FAISS.from_documents(text_chunks, embedding=embeddings)
 def get_conversation_chain(vector_store):
     # Import the neural language model using the LlamaCpp class, which allows you to use a GPT-3 model in C++ with various parameters such as temperature, top_p, verbose and n_ctx (maximum number of tokens that can be generated)
 
-    llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
+    llm = HuggingFaceHub(repo_id="google/gemma-7b", model_kwargs={"temperature":0.5, "max_length":512})
 
     memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
     conversation_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=vector_store.as_retriever(), memory=memory)
