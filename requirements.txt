@@ -1,4 +1,4 @@
-langchain
+langchain==0.0.184
 langchain-community
 python-dotenv==1.0.0
 streamlit==1.18.1
