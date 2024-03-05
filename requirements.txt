@@ -12,3 +12,4 @@ openai==0.27.6
 pypdf
 cryptography==3.1
 sentence-transformers
+InstructorEmbedding==1.0.1
