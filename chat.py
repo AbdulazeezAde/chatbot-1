@@ -16,7 +16,7 @@ from langchain_anthropic import ChatAnthropic
 from dotenv import load_dotenv
 
 
-os.environ.get('HUGGINGFACE_API_KEY')
+os.environ.get('ANTHROPIC_API_KEY')
 
 
 st.set_page_config(page_title="Chatbot", page_icon=":books:")
