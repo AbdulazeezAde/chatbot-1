@@ -12,7 +12,7 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from htmlTemplates import css, bot_template, user_template
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from langchain_anthropic import ChatAnthropic
 from dotenv import load_dotenv
 
 
@@ -60,8 +60,8 @@ vector_store = FAISS.from_documents(text_chunks, embedding=embeddings)
 def get_conversation_chain(vector_store):
     # Import the neural language model using the LlamaCpp class, which allows you to use a GPT-3 model in C++ with various parameters such as temperature, top_p, verbose and n_ctx (maximum number of tokens that can be generated)
 
-    llm = HuggingFaceHub(repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1")
-
+    #llm = HuggingFaceHub(repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1")
+    llm = ChatAnthropic(model ='claude-3-opus-20240229')
     memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
     conversation_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=vector_store.as_retriever(), memory=memory)
     return conversation_chain
